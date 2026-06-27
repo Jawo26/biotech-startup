@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KRAS G12C — Knowledge Card Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #0a0e14;
+      --bg-surface: #111820;
+      --bg-card: #151d28;
+      --bg-card-hover: #1a2433;
+      --border: rgba(255, 255, 255, 0.07);
+      --border-accent: rgba(56, 189, 248, 0.25);
+      --text-primary: #e8edf4;
+      --text-secondary: #8b9cb3;
+      --text-muted: #5c6b80;
+      --accent-cyan: #38bdf8;
+      --accent-teal: #2dd4bf;
+      --trust-low: #ef4444;
+      --trust-low-bg: rgba(239, 68, 68, 0.12);
+      --trust-med: #f59e0b;
+      --trust-med-bg: rgba(245, 158, 11, 0.12);
+      --trust-high: #22c55e;
+      --trust-high-bg: rgba(34, 197, 94, 0.12);
+      --trust-unknown: #64748b;
+      --trust-unknown-bg: rgba(100, 116, 139, 0.12);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(56, 189, 248, 0.08), transparent),
+        radial-gradient(ellipse 60% 40% at 90% 100%, rgba(45, 212, 191, 0.06), transparent);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .app {
+      position: relative;
+      z-index: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* Header */
+    .header {
+      margin-bottom: 2.5rem;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--border-accent);
+      border-radius: 999px;
+      padding: 0.35rem 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .header-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 8px var(--accent-cyan);
+    }
+
+    .header h1 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 640px;
+    }
+
+    .stats-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .stat-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    .stat-pill strong {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-teal);
+    }
+
+    .stat-pill span { color: var(--text-muted); }
+
+    /* States */
+    .state-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .state-panel.hidden { display: none; }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent-cyan);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 1.25rem;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .state-panel h2 {
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .state-panel p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      max-width: 480px;
+    }
+
+    .error-panel {
+      border-color: rgba(239, 68, 68, 0.3);
+      background: rgba(239, 68, 68, 0.05);
+    }
+
+    .error-panel h2 { color: var(--trust-low); }
+
+    .error-hint {
+      margin-top: 1rem;
+      padding: 0.85rem 1.1rem;
+      background: var(--bg-card);
+      border-radius: var(--radius-sm);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      text-align: left;
+      max-width: 520px;
+    }
+
+    /* Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .cards-grid.hidden { display: none; }
+
+    /* Card */
+    .knowledge-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+
+    .knowledge-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(255, 255, 255, 0.12);
+      box-shadow: var(--shadow);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .card-id {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .trust-badge {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 72px;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid;
+      text-align: center;
+    }
+
+    .trust-badge .score {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .trust-badge .label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 0.15rem;
+      opacity: 0.85;
+    }
+
+    .trust-badge.low {
+      color: var(--trust-low);
+      background: var(--trust-low-bg);
+      border-color: rgba(239, 68, 68, 0.35);
+    }
+
+    .trust-badge.medium {
+      color: var(--trust-med);
+      background: var(--trust-med-bg);
+      border-color: rgba(245, 158, 11, 0.35);
+    }
+
+    .trust-badge.high {
+      color: var(--trust-high);
+      background: var(--trust-high-bg);
+      border-color: rgba(34, 197, 94, 0.35);
+    }
+
+    .trust-badge.unknown {
+      color: var(--trust-unknown);
+      background: var(--trust-unknown-bg);
+      border-color: rgba(100, 116, 139, 0.35);
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+
+    .card-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem 1rem;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .meta-item.full-width { grid-column: 1 / -1; }
+
+    .meta-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .meta-value {
+      font-size: 0.875rem;
+      color: var(--text-primary);
+    }
+
+    .meta-value.mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--accent-cyan);
+    }
+
+    .status-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-secondary);
+      text-transform: capitalize;
+    }
+
+    .confidence-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .confidence-tag.low { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
+    .confidence-tag.medium { background: rgba(245, 158, 11, 0.15); color: #fcd34d; }
+    .confidence-tag.high { background: rgba(34, 197, 94, 0.15); color: #86efac; }
+    .confidence-tag.not_extracted { background: rgba(100, 116, 139, 0.15); color: #94a3b8; }
+
+    .section-divider {
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-title {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .drugs-list {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .trust-notes {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .trust-notes li {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .trust-notes li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+
+    .results-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .result-chip {
+      font-size: 0.78rem;
+      padding: 0.35rem 0.65rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+    }
+
+    .result-chip.posted {
+      border-color: rgba(34, 197, 94, 0.3);
+      color: var(--trust-high);
+    }
+
+    .result-chip.not-posted {
+      border-color: rgba(239, 68, 68, 0.25);
+      color: #fca5a5;
+    }
+
+    @media (max-width: 480px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      .card-meta { grid-template-columns: 1fr; }
+      .app { padding: 1.25rem 1rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-badge">KRAS G12C · NSCLC Trials</div>
+      <h1>Knowledge Card Dashboard</h1>
+      <p>Clinical trial intelligence with statistical validity scoring. Data sourced from ClinicalTrials.gov knowledge objects.</p>
+      <div class="stats-bar" id="stats-bar" hidden>
+        <div class="stat-pill"><strong id="stat-count">—</strong> <span>trials loaded</span></div>
+        <div class="stat-pill"><strong id="stat-avg-trust">—</strong> <span>avg trust score</span></div>
+        <div class="stat-pill"><strong id="stat-results">—</strong> <span>with posted results</span></div>
+      </div>
+    </header>
+
+    <div id="loading" class="state-panel">
+      <div class="spinner"></div>
+      <h2>Loading knowledge objects…</h2>
+      <p>Fetching <code>kras_g12c_knowledge_objects.json</code></p>
+    </div>
+
+    <div id="error" class="state-panel error-panel hidden">
+      <h2>Failed to load data</h2>
+      <p id="error-message">An unexpected error occurred.</p>
+      <div class="error-hint">
+        # Local server required for fetch() on file://<br><br>
+        cd "C:\Users\Windows\Downloads\BIOTECH STARTUP"<br>
+        python -m http.server 8080<br><br>
+        Then open: http://localhost:8080
+      </div>
+    </div>
+
+    <div id="cards-grid" class="cards-grid hidden"></div>
+  </div>
+
+  <script>
+    const JSON_FILE = 'kras_g12c_knowledge_objects.json';
+
+    function escapeHtml(str) {
+      if (str == null) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function formatValue(val) {
+      if (val == null || val === '') return '—';
+      if (typeof val === 'boolean') return val ? 'Yes' : 'No';
+      return val;
+    }
+
+    function formatDate(iso) {
+      if (!iso) return '—';
+      try {
+        return new Date(iso).toLocaleDateString('en-US', {
+          year: 'numeric', month: 'short', day: 'numeric'
+        });
+      } catch {
+        return iso;
+      }
+    }
+
+    function formatStatus(status) {
+      if (!status) return '—';
+      return status.replace(/_/g, ' ');
+    }
+
+    function getTrustTier(score) {
+      if (score == null || score === '' || isNaN(Number(score))) {
+        return { tier: 'unknown', label: 'N/A' };
+      }
+      const n = Number(score);
+      if (n <= 25) return { tier: 'low', label: 'Low' };
+      if (n <= 75) return { tier: 'medium', label: 'Medium' };
+      return { tier: 'high', label: 'High' };
+    }
+
+    function confidenceClass(conf) {
+      if (!conf) return 'not_extracted';
+      const c = conf.toLowerCase();
+      if (c === 'low' || c === 'medium' || c === 'high') return c;
+      return 'not_extracted';
+    }
+
+    function extractTrials(data) {
+      if (Array.isArray(data)) return data;
+      if (data && Array.isArray(data.trials)) return data.trials;
+      if (data && Array.isArray(data.knowledge_objects)) return data.knowledge_objects;
+      if (data && Array.isArray(data.items)) return data.items;
+      if (data && typeof data === 'object') {
+        const values = Object.values(data);
+        if (values.length && values.every(v => v && typeof v === 'object' && !Array.isArray(v))) {
+          return values;
+        }
+      }
+      return [];
+    }
+
+    function getTrustScore(ko) {
+      const ts = ko.trust_signals || ko.trust || {};
+      return ts.statistical_validity_score ?? ts.trust_score ?? ts.score ?? null;
+    }
+
+    function renderCard(ko) {
+      const meta = ko.study_metadata || ko.metadata || {};
+      const source = ko.source || {};
+      const entities = ko.entities || {};
+      const intervention = entities.intervention || entities.drugs || {};
+      const pico = ko.pico || {};
+      const population = pico.population || {};
+      const outcomes = pico.outcomes || [];
+      const primaryOutcome = outcomes.find(o => o.type === 'primary') || outcomes[0] || {};
+      const results = ko.results || {};
+      const endpoint = results.primary_endpoint || results.primary || {};
+      const trust = ko.trust_signals || ko.trust || {};
+      const notes = trust.statistical_validity_notes || trust.notes || [];
+
+      const trustScore = getTrustScore(ko);
+      const { tier, label } = getTrustTier(trustScore);
+      const scoreDisplay = trustScore != null ? Math.round(Number(trustScore)) : '—';
+
+      const drugs = intervention.normalized_drugs || intervention.drugs || intervention.name || '—';
+      const drugConfidence = intervention.confidence || null;
+      const resultsPosted = results.results_posted;
+
+      return `
+        <article class="knowledge-card">
+          <div class="card-top">
+            <div>
+              <div class="card-id">${escapeHtml(ko.ko_id || ko.id || 'Unknown ID')}</div>
+            </div>
+            <div class="trust-badge ${tier}" title="Statistical Validity Score">
+              <span class="score">${escapeHtml(scoreDisplay)}</span>
+              <span class="label">Trust · ${escapeHtml(label)}</span>
+            </div>
+          </div>
+
+          <h2 class="card-title">${escapeHtml(meta.title || ko.title || 'Untitled Study')}</h2>
+
+          <div class="card-meta">
+            <div class="meta-item">
+              <span class="meta-label">NCT ID</span>
+              <span class="meta-value mono">${escapeHtml(source.nct_id || ko.nct_id || '—')}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Phase</span>
+              <span class="meta-value">${escapeHtml(formatValue(meta.phase || ko.phase))}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Enrollment</span>
+              <span class="meta-value">${escapeHtml(formatValue(meta.enrollment_actual ?? population.sample_size))}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Status</span>
+              <span class="meta-value"><span class="status-tag">${escapeHtml(formatStatus(ko.status))}</span></span>
+            </div>
+            <div class="meta-item full-width">
+              <span class="meta-label">Lead Sponsor</span>
+              <span class="meta-value">${escapeHtml(formatValue(meta.lead_sponsor || ko.sponsor))}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Source</span>
+              <span class="meta-value">${escapeHtml(formatValue(source.primary_source))}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Created</span>
+              <span class="meta-value">${escapeHtml(formatDate(ko.created_at))}</span>
+            </div>
+          </div>
+
+          <div class="section-divider"></div>
+
+          <div>
+            <div class="section-title">Interventions</div>
+            <p class="drugs-list">${escapeHtml(formatValue(drugs))}</p>
+            ${drugConfidence ? `<span class="confidence-tag ${confidenceClass(drugConfidence)}">${escapeHtml(drugConfidence)} confidence</span>` : ''}
+          </div>
+
+          ${primaryOutcome.description ? `
+          <div>
+            <div class="section-title">Primary Outcome</div>
+            <p class="drugs-list">${escapeHtml(primaryOutcome.description)}</p>
+          </div>` : ''}
+
+          <div>
+            <div class="section-title">Results</div>
+            <div class="results-row">
+              <span class="result-chip ${resultsPosted ? 'posted' : 'not-posted'}">
+                ${resultsPosted ? '✓ Results posted' : '✗ No results posted'}
+              </span>
+              ${endpoint.outcome ? `<span class="result-chip">${escapeHtml(endpoint.outcome)}</span>` : ''}
+              ${endpoint.intervention_value != null ? `<span class="result-chip">Intervention: ${escapeHtml(endpoint.intervention_value)} ${escapeHtml(endpoint.unit || '')}</span>` : ''}
+              ${endpoint.p_value != null ? `<span class="result-chip">p = ${escapeHtml(endpoint.p_value)}</span>` : ''}
+            </div>
+          </div>
+
+          ${notes.length ? `
+          <div>
+            <div class="section-title">Trust Signals</div>
+            <ul class="trust-notes">
+              ${notes.map(n => `<li>${escapeHtml(n)}</li>`).join('')}
+            </ul>
+          </div>` : ''}
+        </article>
+      `;
+    }
+
+    function updateStats(trials) {
+      const scores = trials
+        .map(ko => getTrustScore(ko))
+        .filter(s => s != null && !isNaN(Number(s)));
+
+      const avg = scores.length
+        ? Math.round(scores.reduce((a, b) => a + Number(b), 0) / scores.length)
+        : '—';
+
+      const withResults = trials.filter(ko => (ko.results || {}).results_posted === true).length;
+
+      document.getElementById('stat-count').textContent = trials.length;
+      document.getElementById('stat-avg-trust').textContent = avg;
+      document.getElementById('stat-results').textContent = withResults;
+      document.getElementById('stats-bar').hidden = false;
+    }
+
+    function showError(message) {
+      document.getElementById('loading').classList.add('hidden');
+      document.getElementById('error').classList.remove('hidden');
+      document.getElementById('error-message').textContent = message;
+    }
+
+    function showCards(trials) {
+      document.getElementById('loading').classList.add('hidden');
+      const grid = document.getElementById('cards-grid');
+      grid.classList.remove('hidden');
+      grid.innerHTML = trials.map(renderCard).join('');
+      updateStats(trials);
+    }
+
+    async function loadDashboard() {
+      try {
+        const response = await fetch(JSON_FILE);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: Could not fetch ${JSON_FILE}`);
+        }
+        const data = await response.json();
+        const trials = extractTrials(data);
+
+        if (!trials.length) {
+          throw new Error('No trial records found in JSON. Expected a root array or a trials/knowledge_objects property.');
+        }
+
+        showCards(trials);
+      } catch (err) {
+        let msg = err.message || 'Unknown error';
+        if (location.protocol === 'file:') {
+          msg += ' — Browsers block fetch() on file:// URLs. Use a local HTTP server (see hint below).';
+        }
+        showError(msg);
+      }
+    }
+
+    loadDashboard();
+  </script>
+</body>
+</html>

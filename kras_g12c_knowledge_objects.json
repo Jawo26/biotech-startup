@@ -1,0 +1,537 @@
+[
+  {
+    "ko_id": "KO-2026-NSCLC-00001",
+    "version": "0.1",
+    "created_at": "2026-06-26T18:39:53.499539Z",
+    "status": "draft_pending_pharmacologist_review",
+    "source": {
+      "primary_source": "clinicaltrials_gov",
+      "nct_id": "NCT04720976"
+    },
+    "study_metadata": {
+      "title": "JAB-3312 Based Combination Therapy in Adult Patients With Advanced Solid Tumors",
+      "phase": "PHASE1, PHASE2",
+      "enrollment_actual": 58,
+      "lead_sponsor": "Allist Pharmaceuticals, Inc."
+    },
+    "entities": {
+      "intervention": {
+        "normalized_drugs": "JAB-3312 [UNMAPPED]; Binimetinib [UNMAPPED]; Pembrolizumab [UNMAPPED]; Sotorasib; Osimertinib [UNMAPPED]",
+        "confidence": "low"
+      }
+    },
+    "pico": {
+      "population": {
+        "sample_size": 58,
+        "description": null,
+        "confidence": "not_extracted"
+      },
+      "outcomes": [
+        {
+          "type": "primary",
+          "description": null,
+          "confidence": "not_extracted"
+        }
+      ]
+    },
+    "results": {
+      "primary_endpoint": {
+        "outcome": null,
+        "intervention_value": null,
+        "comparator_value": null,
+        "unit": null,
+        "p_value": null,
+        "confidence_interval_95": null
+      },
+      "results_posted": false
+    },
+    "trust_signals": {
+      "statistical_validity_score": 10,
+      "statistical_validity_notes": [
+        "Underpowered: enrolled 58 vs. required 447 (assumes HR=0.75)",
+        "No p-value extracted \u2014 cannot assess",
+        "No confidence interval reported",
+        "No results posted \u2014 cannot verify any claims"
+      ],
+      "statistical_validity_assumptions": {
+        "target_hazard_ratio": 0.75,
+        "assumed_event_rate": 0.85,
+        "alpha": 0.05,
+        "power": 0.8,
+        "pharmacologist_reviewed": false
+      },
+      "replication_confidence_score": null,
+      "coi_flags": null,
+      "retraction_status": null
+    },
+    "agent_rationale": null
+  },
+  {
+    "ko_id": "KO-2026-NSCLC-00002",
+    "version": "0.1",
+    "created_at": "2026-06-26T18:39:53.499733Z",
+    "status": "draft_pending_pharmacologist_review",
+    "source": {
+      "primary_source": "clinicaltrials_gov",
+      "nct_id": "NCT04330664"
+    },
+    "study_metadata": {
+      "title": "Adagrasib in Combination With TNO155 in Patients With Cancer (KRYSTAL 2)",
+      "phase": "PHASE1",
+      "enrollment_actual": 86,
+      "lead_sponsor": "Mirati Therapeutics Inc."
+    },
+    "entities": {
+      "intervention": {
+        "normalized_drugs": "Adagrasib; TNO155",
+        "confidence": "medium"
+      }
+    },
+    "pico": {
+      "population": {
+        "sample_size": 86,
+        "description": null,
+        "confidence": "not_extracted"
+      },
+      "outcomes": [
+        {
+          "type": "primary",
+          "description": null,
+          "confidence": "not_extracted"
+        }
+      ]
+    },
+    "results": {
+      "primary_endpoint": {
+        "outcome": null,
+        "intervention_value": null,
+        "comparator_value": null,
+        "unit": null,
+        "p_value": null,
+        "confidence_interval_95": null
+      },
+      "results_posted": false
+    },
+    "trust_signals": {
+      "statistical_validity_score": 10,
+      "statistical_validity_notes": [
+        "Underpowered: enrolled 86 vs. required 447 (assumes HR=0.75)",
+        "No p-value extracted \u2014 cannot assess",
+        "No confidence interval reported",
+        "No results posted \u2014 cannot verify any claims"
+      ],
+      "statistical_validity_assumptions": {
+        "target_hazard_ratio": 0.75,
+        "assumed_event_rate": 0.85,
+        "alpha": 0.05,
+        "power": 0.8,
+        "pharmacologist_reviewed": false
+      },
+      "replication_confidence_score": null,
+      "coi_flags": null,
+      "retraction_status": null
+    },
+    "agent_rationale": null
+  },
+  {
+    "ko_id": "KO-2026-NSCLC-00003",
+    "version": "0.1",
+    "created_at": "2026-06-26T18:39:53.499853Z",
+    "status": "draft_pending_pharmacologist_review",
+    "source": {
+      "primary_source": "clinicaltrials_gov",
+      "nct_id": "NCT06333678"
+    },
+    "study_metadata": {
+      "title": "A Study Comparing Sotorasib With Durvalumab in People With Non-Small Cell Lung Cancer (NSCLC)",
+      "phase": "PHASE2",
+      "enrollment_actual": 10,
+      "lead_sponsor": "Memorial Sloan Kettering Cancer Center"
+    },
+    "entities": {
+      "intervention": {
+        "normalized_drugs": "Durvalumab; Sotorasib",
+        "confidence": "medium"
+      }
+    },
+    "pico": {
+      "population": {
+        "sample_size": 10,
+        "description": null,
+        "confidence": "not_extracted"
+      },
+      "outcomes": [
+        {
+          "type": "primary",
+          "description": null,
+          "confidence": "not_extracted"
+        }
+      ]
+    },
+    "results": {
+      "primary_endpoint": {
+        "outcome": null,
+        "intervention_value": null,
+        "comparator_value": null,
+        "unit": null,
+        "p_value": null,
+        "confidence_interval_95": null
+      },
+      "results_posted": false
+    },
+    "trust_signals": {
+      "statistical_validity_score": 10,
+      "statistical_validity_notes": [
+        "Underpowered: enrolled 10 vs. required 447 (assumes HR=0.75)",
+        "No p-value extracted \u2014 cannot assess",
+        "No confidence interval reported",
+        "No results posted \u2014 cannot verify any claims"
+      ],
+      "statistical_validity_assumptions": {
+        "target_hazard_ratio": 0.75,
+        "assumed_event_rate": 0.85,
+        "alpha": 0.05,
+        "power": 0.8,
+        "pharmacologist_reviewed": false
+      },
+      "replication_confidence_score": null,
+      "coi_flags": null,
+      "retraction_status": null
+    },
+    "agent_rationale": null
+  },
+  {
+    "ko_id": "KO-2026-NSCLC-00004",
+    "version": "0.1",
+    "created_at": "2026-06-26T18:39:53.499979Z",
+    "status": "draft_pending_pharmacologist_review",
+    "source": {
+      "primary_source": "clinicaltrials_gov",
+      "nct_id": "NCT05054725"
+    },
+    "study_metadata": {
+      "title": "Combination Study of RMC-4630 and Sotorasib for NSCLC Subjects With KRASG12C Mutation After Failure of Prior Standard Therapies",
+      "phase": "PHASE2",
+      "enrollment_actual": 47,
+      "lead_sponsor": "Revolution Medicines, Inc."
+    },
+    "entities": {
+      "intervention": {
+        "normalized_drugs": "RMC-4630 [UNMAPPED]; Sotorasib",
+        "confidence": "low"
+      }
+    },
+    "pico": {
+      "population": {
+        "sample_size": 47,
+        "description": null,
+        "confidence": "not_extracted"
+      },
+      "outcomes": [
+        {
+          "type": "primary",
+          "description": "Objective Response Rate (ORR) as Assessed Per RECIST v1.1",
+          "confidence": "medium"
+        }
+      ]
+    },
+    "results": {
+      "primary_endpoint": {
+        "outcome": "Objective Response Rate (ORR) as Assessed Per RECIST v1.1",
+        "intervention_value": "0",
+        "comparator_value": "11",
+        "unit": "Participants",
+        "p_value": null,
+        "confidence_interval_95": null
+      },
+      "results_posted": true
+    },
+    "trust_signals": {
+      "statistical_validity_score": 60,
+      "statistical_validity_notes": [
+        "Underpowered: enrolled 47 vs. required 447 (assumes HR=0.75)",
+        "No p-value extracted \u2014 cannot assess",
+        "No confidence interval reported"
+      ],
+      "statistical_validity_assumptions": {
+        "target_hazard_ratio": 0.75,
+        "assumed_event_rate": 0.85,
+        "alpha": 0.05,
+        "power": 0.8,
+        "pharmacologist_reviewed": false
+      },
+      "replication_confidence_score": null,
+      "coi_flags": null,
+      "retraction_status": null
+    },
+    "agent_rationale": null
+  },
+  {
+    "ko_id": "KO-2026-NSCLC-00005",
+    "version": "0.1",
+    "created_at": "2026-06-26T18:39:53.500091Z",
+    "status": "draft_pending_pharmacologist_review",
+    "source": {
+      "primary_source": "clinicaltrials_gov",
+      "nct_id": "NCT06314763"
+    },
+    "study_metadata": {
+      "title": "Rivaroxaban Sotorasib Interaction Study",
+      "phase": "PHASE4",
+      "enrollment_actual": 21,
+      "lead_sponsor": "Radboud University Medical Center"
+    },
+    "entities": {
+      "intervention": {
+        "normalized_drugs": "Rivaroxaban 20mg [UNMAPPED]; Sotorasib 960mg [UNMAPPED]",
+        "confidence": "low"
+      }
+    },
+    "pico": {
+      "population": {
+        "sample_size": 21,
+        "description": null,
+        "confidence": "not_extracted"
+      },
+      "outcomes": [
+        {
+          "type": "primary",
+          "description": null,
+          "confidence": "not_extracted"
+        }
+      ]
+    },
+    "results": {
+      "primary_endpoint": {
+        "outcome": null,
+        "intervention_value": null,
+        "comparator_value": null,
+        "unit": null,
+        "p_value": null,
+        "confidence_interval_95": null
+      },
+      "results_posted": false
+    },
+    "trust_signals": {
+      "statistical_validity_score": 10,
+      "statistical_validity_notes": [
+        "Underpowered: enrolled 21 vs. required 447 (assumes HR=0.75)",
+        "No p-value extracted \u2014 cannot assess",
+        "No confidence interval reported",
+        "No results posted \u2014 cannot verify any claims"
+      ],
+      "statistical_validity_assumptions": {
+        "target_hazard_ratio": 0.75,
+        "assumed_event_rate": 0.85,
+        "alpha": 0.05,
+        "power": 0.8,
+        "pharmacologist_reviewed": false
+      },
+      "replication_confidence_score": null,
+      "coi_flags": null,
+      "retraction_status": null
+    },
+    "agent_rationale": null
+  },
+  {
+    "ko_id": "KO-2026-NSCLC-00006",
+    "version": "0.1",
+    "created_at": "2026-06-26T18:39:53.500192Z",
+    "status": "draft_pending_pharmacologist_review",
+    "source": {
+      "primary_source": "clinicaltrials_gov",
+      "nct_id": "NCT04959981"
+    },
+    "study_metadata": {
+      "title": "A Study of Anti-Cancer Therapies Targeting the MAPK Pathway in Patients With Advanced NSCLC",
+      "phase": "PHASE1",
+      "enrollment_actual": 24,
+      "lead_sponsor": "Erasca, Inc."
+    },
+    "entities": {
+      "intervention": {
+        "normalized_drugs": "ERAS-007 [UNMAPPED]; ERAS-601 [UNMAPPED]; Osimertinib [UNMAPPED]; Sotorasib",
+        "confidence": "low"
+      }
+    },
+    "pico": {
+      "population": {
+        "sample_size": 24,
+        "description": null,
+        "confidence": "not_extracted"
+      },
+      "outcomes": [
+        {
+          "type": "primary",
+          "description": null,
+          "confidence": "not_extracted"
+        }
+      ]
+    },
+    "results": {
+      "primary_endpoint": {
+        "outcome": null,
+        "intervention_value": null,
+        "comparator_value": null,
+        "unit": null,
+        "p_value": null,
+        "confidence_interval_95": null
+      },
+      "results_posted": false
+    },
+    "trust_signals": {
+      "statistical_validity_score": 10,
+      "statistical_validity_notes": [
+        "Underpowered: enrolled 24 vs. required 447 (assumes HR=0.75)",
+        "No p-value extracted \u2014 cannot assess",
+        "No confidence interval reported",
+        "No results posted \u2014 cannot verify any claims"
+      ],
+      "statistical_validity_assumptions": {
+        "target_hazard_ratio": 0.75,
+        "assumed_event_rate": 0.85,
+        "alpha": 0.05,
+        "power": 0.8,
+        "pharmacologist_reviewed": false
+      },
+      "replication_confidence_score": null,
+      "coi_flags": null,
+      "retraction_status": null
+    },
+    "agent_rationale": null
+  },
+  {
+    "ko_id": "KO-2026-NSCLC-00007",
+    "version": "0.1",
+    "created_at": "2026-06-26T18:39:53.500290Z",
+    "status": "draft_pending_pharmacologist_review",
+    "source": {
+      "primary_source": "clinicaltrials_gov",
+      "nct_id": "NCT07143513"
+    },
+    "study_metadata": {
+      "title": "Real World Evaluation of Sotorasib Among Chinese Non-Small Cell Lung Cancer Patients",
+      "phase": "Not specified",
+      "enrollment_actual": 102,
+      "lead_sponsor": "Amgen"
+    },
+    "entities": {
+      "intervention": {
+        "normalized_drugs": "Sotorasib",
+        "confidence": "medium"
+      }
+    },
+    "pico": {
+      "population": {
+        "sample_size": 102,
+        "description": null,
+        "confidence": "not_extracted"
+      },
+      "outcomes": [
+        {
+          "type": "primary",
+          "description": null,
+          "confidence": "not_extracted"
+        }
+      ]
+    },
+    "results": {
+      "primary_endpoint": {
+        "outcome": null,
+        "intervention_value": null,
+        "comparator_value": null,
+        "unit": null,
+        "p_value": null,
+        "confidence_interval_95": null
+      },
+      "results_posted": false
+    },
+    "trust_signals": {
+      "statistical_validity_score": 10,
+      "statistical_validity_notes": [
+        "Underpowered: enrolled 102 vs. required 447 (assumes HR=0.75)",
+        "No p-value extracted \u2014 cannot assess",
+        "No confidence interval reported",
+        "No results posted \u2014 cannot verify any claims"
+      ],
+      "statistical_validity_assumptions": {
+        "target_hazard_ratio": 0.75,
+        "assumed_event_rate": 0.85,
+        "alpha": 0.05,
+        "power": 0.8,
+        "pharmacologist_reviewed": false
+      },
+      "replication_confidence_score": null,
+      "coi_flags": null,
+      "retraction_status": null
+    },
+    "agent_rationale": null
+  },
+  {
+    "ko_id": "KO-2026-NSCLC-00008",
+    "version": "0.1",
+    "created_at": "2026-06-26T18:39:53.500385Z",
+    "status": "draft_pending_pharmacologist_review",
+    "source": {
+      "primary_source": "clinicaltrials_gov",
+      "nct_id": "NCT04933695"
+    },
+    "study_metadata": {
+      "title": "A Study of Sotorasib (AMG 510) in Participants With Stage IV NSCLC Whose Tumors Harbor a KRAS p.G12C Mutation in Need of First-line Treatment",
+      "phase": "PHASE2",
+      "enrollment_actual": 42,
+      "lead_sponsor": "Amgen"
+    },
+    "entities": {
+      "intervention": {
+        "normalized_drugs": "Sotorasib",
+        "confidence": "medium"
+      }
+    },
+    "pico": {
+      "population": {
+        "sample_size": 42,
+        "description": null,
+        "confidence": "not_extracted"
+      },
+      "outcomes": [
+        {
+          "type": "primary",
+          "description": null,
+          "confidence": "not_extracted"
+        }
+      ]
+    },
+    "results": {
+      "primary_endpoint": {
+        "outcome": null,
+        "intervention_value": null,
+        "comparator_value": null,
+        "unit": null,
+        "p_value": null,
+        "confidence_interval_95": null
+      },
+      "results_posted": false
+    },
+    "trust_signals": {
+      "statistical_validity_score": 10,
+      "statistical_validity_notes": [
+        "Underpowered: enrolled 42 vs. required 447 (assumes HR=0.75)",
+        "No p-value extracted \u2014 cannot assess",
+        "No confidence interval reported",
+        "No results posted \u2014 cannot verify any claims"
+      ],
+      "statistical_validity_assumptions": {
+        "target_hazard_ratio": 0.75,
+        "assumed_event_rate": 0.85,
+        "alpha": 0.05,
+        "power": 0.8,
+        "pharmacologist_reviewed": false
+      },
+      "replication_confidence_score": null,
+      "coi_flags": null,
+      "retraction_status": null
+    },
+    "agent_rationale": null
+  }
+]
